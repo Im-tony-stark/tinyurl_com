@@ -1,0 +1,31 @@
+Support:
+  - Cutt.ly
+
+== About Cutt.ly
+  [!] - Create
+  [!] - Analytic
+  [x] - Edit
+
+== Exampe Cutt.ly
+package main
+
+import "fmt"
+
+func conf() *ConfigurationCuttly { return Add("PRIVATE_KEY") }
+
+func main() {
+	c := conf()
+  cc, err := c.CuttlyNew("YOUR_LINK")
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(cc.Url.Status, cc.Url.ShortLink, cc.Url.Title)
+
+  cs, err := c.CuttlyAnalytics("YOUR_SHORT")
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(cs.Stats.Date, cs.Stats.Clicks, cs.Stats.Title)
+}
