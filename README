@@ -2,7 +2,8 @@ Install:
   go get -u github.com/vexilology/shorteninGO
 
 Support:
-  - Cutt.ly
+  - [!] Cutt.ly
+  - [x] Tinyurl.com
 
 == Available with Cutt.ly
   [!] - Create
