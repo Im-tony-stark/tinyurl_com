@@ -1,10 +1,15 @@
+Install:
+  go get -u github.com/vexilology/shorteninGO
+
 Support:
   - Cutt.ly
 
 == Available with Cutt.ly
   [!] - Create
   [!] - Analytic
-  [x] - Edit
+  [x] - Change name(subscribe mode)
+  [x] - Delete link(subscribe mode)
+  [x] - Edit link/title/name(subscribe mode)
 
 == Exampe Cutt.ly
 package main
