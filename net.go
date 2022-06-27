@@ -1,4 +1,4 @@
-package main
+package shortening
 
 import "net/http"
 

@@ -1,4 +1,4 @@
-package main
+package shortening
 
 type ConfigurationCuttly struct {
   Key string
