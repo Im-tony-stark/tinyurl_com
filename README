@@ -1,5 +1,5 @@
 Install:
-  go get -u github.com/vexilology/shorteninGO
+  go get -u github.com/vexilology/shorteningo
 
 Support:
   - [!] Cutt.ly
@@ -15,9 +15,12 @@ Support:
 == Exampe Cutt.ly
 package main
 
-import "fmt"
+import (
+  "fmt"
+  sh "github.com/vexilology/shorteningo"
+)
 
-func conf() *ConfigurationCuttly { return Add("PRIVATE_KEY") }
+func conf() *sh.ConfigurationCuttly { return sh.Add("PRIVATE_KEY") }
 
 func main() {
   c := conf()

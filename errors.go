@@ -1,4 +1,4 @@
-package shortening
+package shorteningo
 
 var LinkShortenig = map[int]string{
 	1: "the shortened link comes from the domain that shortens the link, i.e. the link has already been shortened",

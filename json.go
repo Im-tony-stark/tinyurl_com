@@ -1,4 +1,4 @@
-package shortening
+package shorteningo
 
 type CuttlyCreate struct {
   Url StatusCreate `json:"url"`

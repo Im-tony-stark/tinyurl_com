@@ -1,4 +1,4 @@
-package shortening
+package shorteningo
 
 import "net/http"
 
