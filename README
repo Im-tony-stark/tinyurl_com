@@ -1,7 +1,7 @@
 Support:
   - Cutt.ly
 
-== About Cutt.ly
+== Available with Cutt.ly
   [!] - Create
   [!] - Analytic
   [x] - Edit
@@ -14,7 +14,7 @@ import "fmt"
 func conf() *ConfigurationCuttly { return Add("PRIVATE_KEY") }
 
 func main() {
-	c := conf()
+  c := conf()
   cc, err := c.CuttlyNew("YOUR_LINK")
   if err != nil {
     fmt.Println(err)
