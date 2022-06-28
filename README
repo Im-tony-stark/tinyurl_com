@@ -12,11 +12,11 @@ Support:
 == Available with Cutt.ly
   [!] - Create
   [!] - Analytic
-  [x] - Change name(subscribe mode)
-  [x] - Delete link(subscribe mode)
-  [x] - Edit link/title/name(subscribe mode)
+  [x] - Change name(only subscribe mode)
+  [x] - Delete link(only subscribe mode)
+  [x] - Edit link/title/name(only subscribe mode)
 
-== Exampe Cutt.ly
+== Example Cutt.ly
 package main
 
 import (
@@ -52,7 +52,7 @@ func main() {
   )
 }
 
-== Exampe TinyUrl.com
+== Example TinyUrl.com
 package main
 
 import (
