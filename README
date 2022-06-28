@@ -2,8 +2,12 @@ Install:
   go get -u github.com/vexilology/shorteningo
 
 Support:
-  - [!] Cutt.ly
-  - [x] Tinyurl.com
+  [!] Cutt.ly
+  [!] Tinyurl.com
+
+== Available with TinyUrl.com
+  [!] - Create
+  ... in progress
 
 == Available with Cutt.ly
   [!] - Create
@@ -20,7 +24,7 @@ import (
   sh "github.com/vexilology/shorteningo"
 )
 
-func conf() *sh.ConfigurationCuttly { return sh.Add("PRIVATE_KEY") }
+func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
 
 func main() {
   c := conf()
@@ -29,12 +33,50 @@ func main() {
     fmt.Println(err)
     return
   }
-  fmt.Println(cc.Url.Status, cc.Url.ShortLink, cc.Url.Title)
+  fmt.Println(
+    cc.Url.Status, cc.Url.ShortLink, cc.Url.Title,
+    cc.Url.FullLink, cc.Url.Date,
+  )
 
   cs, err := c.CuttlyAnalytics("YOUR_SHORT")
   if err != nil {
     fmt.Println(err)
     return
   }
-  fmt.Println(cs.Stats.Date, cs.Stats.Clicks, cs.Stats.Title)
+  fmt.Println(
+    cs.Stats.Date, cs.Stats.Clicks, cs.Stats.Title,
+    cs.Stats.Status, cs.Stats.FullLink, cs.Stats.ShortLink,
+    cs.Stats.Facebook, cs.Stats.Twitter, cs.Stats.Pinterest,
+    cs.Stats.Instagram, cs.Stats.GooglePlus, cs.Stats.Linkedin,
+    cs.Stats.Rest, cs.Stats.Bots,
+  )
+}
+
+== Exampe TinyUrl.com
+package main
+
+import (
+  "fmt"
+  sh "github.com/vexilology/shorteningo"
+)
+
+func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
+
+func main() {
+  c := conf()
+  // empty Domain: tiny.one
+  // empty Alias:  generate random string
+  e := &sh.Options{Domain: "", Alias: ""}
+  tn, err := c.TinyUrlNew("YOUR_URL", e)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(
+    tn.Data.Domain, tn.Data.Alias, tn.Data.Tiny_url,
+    tn.Data.Deleted, tn.Data.Archived,
+    tn.Data.Analytics.Enable, tn.Data.Analytics.Public,
+    tn.Data.Tags, tn.Data.Created_at,
+    tn.Data.Url, tn.Code, tn.Errors,
+  )
 }

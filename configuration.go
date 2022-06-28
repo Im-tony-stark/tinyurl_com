@@ -1,7 +1,7 @@
 package shorteningo
 
-type ConfigurationCuttly struct {
+type Configuration struct {
   Key string
 }
 
-func Add(key string) *ConfigurationCuttly { return &ConfigurationCuttly{Key: key} }
+func Add(key string) *Configuration { return &Configuration{Key: key} }
