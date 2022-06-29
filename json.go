@@ -33,7 +33,7 @@ type StatusStats struct {
   Bots       string `json:"bots"`
 }
 
-type TinyurlCreate struct {
+type TinyUrlCreate struct {
   Data   DataCreate `json:"data"`
   Code   int        `json:"code"`
   Errors []string   `json:"errors"`
@@ -55,4 +55,30 @@ type DataCreate struct {
 type AnalyticsCreate struct {
   Enable bool `json:"enable"`
   Public bool `json:"public"`
+}
+
+type TinyUrlUpdate struct {
+  Data   DataUpdate `json:"data"`
+  Code   int        `json:"code"`
+  Errors []string   `json:"errors"`
+}
+
+type DataUpdate struct {
+  Domain     string          `json:"domain"`
+  Alias      string          `json:"alias"`
+  Deleted    bool            `json:"deleted"`
+  Archived   bool            `json:"archived"`
+  Tags       []string        `json:"tags"`
+  Analytics  AnalyticsCreate `json:"analytics"`
+  Tiny_url   string          `json:"tiny_url"`
+}
+
+type TinyUrlChange struct {
+  Data   DataChange `json:"data"`
+  Code   int        `json:"code"`
+  Errors []string   `json:"errors"`
+}
+
+type DataChange struct {
+  Url string `json:"url"`
 }

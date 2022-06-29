@@ -12,9 +12,9 @@ Support:
 == Available with Cutt.ly
   [!] - Create
   [!] - Analytic
-  [x] - Change name(only subscribe mode)
-  [x] - Delete link(only subscribe mode)
-  [x] - Edit link/title/name(only subscribe mode)
+  [x] - Change name(subscribe mode only)
+  [x] - Delete link(subscribe mode only)
+  [x] - Edit link/title/name(subscribe mode only)
 
 == Example Cutt.ly
 package main
@@ -28,7 +28,8 @@ func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
 
 func main() {
   c := conf()
-  cc, err := c.CuttlyNew("YOUR_LINK")
+
+  cc, err := c.CuttlyNew("YOUR_URL")
   if err != nil {
     fmt.Println(err)
     return
@@ -64,10 +65,11 @@ func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
 
 func main() {
   c := conf()
+
   // empty Domain: tiny.one
   // empty Alias:  generate random string
   e := &sh.Options{Domain: "", Alias: ""}
-  tn, err := c.TinyUrlNew("YOUR_URL", e)
+  tn, err := c.TinyNew("YOUR_URL", e)
   if err != nil {
     fmt.Println(err)
     return
@@ -79,4 +81,23 @@ func main() {
     tn.Data.Tags, tn.Data.Created_at,
     tn.Data.Url, tn.Code, tn.Errors,
   )
+
+  tu, err := c.TinyUpdate("YOUR_DOMAIN", "YOUR_ALIAS", "NEW_ALIAS")
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(
+    tu.Data.Domain, tu.Data.Alias, tu.Data.Tiny_url,
+    tu.Data.Deleted, tu.Data.Archived, tu.Data.Tags,
+    tu.Data.Analytics.Enable, tu.Data.Analytics.Public,
+    tu.code, tu.Errors,
+  )
+
+  tc, err := c.TinyChange("NEW_URL", "YOUR_DOMAIN", "YOUR_ALIAS")
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(tc.Data.Url, tc.Code, tc.Errors)
 }
