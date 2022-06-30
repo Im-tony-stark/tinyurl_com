@@ -80,7 +80,7 @@ func (c *Configuration) TinyNew(url string, t TinyResult) (TinyUrlCreate, int, e
   return tc, 0, nil
 }
 
-// NOTES: new_domain not working
+// NOTES: new_domain not working, need to subscribe and check
 func (c *Configuration) TinyUpdate(domain, alias, new_alias string) (TinyUrlUpdate, int, error) {
   var tu TinyUrlUpdate
 
@@ -208,7 +208,7 @@ func (c *Configuration) TinyInformation(domain, alias string) (TinyUrlReceiveInf
   return tri, 0, nil
 }
 
-// NOTES: delete method not working
+// NOTES: delete method not working, need to subscribe and check
 func (c *Configuration) TinyDelete(domain, alias string) (TinyUrlDelete, int, error) {
   var td TinyUrlDelete
 
@@ -243,4 +243,49 @@ func (c *Configuration) TinyDelete(domain, alias string) (TinyUrlDelete, int, er
   }
 
   return td, 0, nil
+}
+
+// NOTES: archive method not working, need to subscribe and check
+func (c *Configuration) TinyArchive(domain, alias string) (TinyUrlUpdate, int, error) {
+  var ta TinyUrlUpdate
+
+  settings, err := json.Marshal(map[string]interface{} {
+    "domain": domain,
+    "alias": alias,
+  })
+  if err != nil {
+    return ta, 1, err
+  }
+
+  address := fmt.Sprintf("https://api.tinyurl.com/archive?api_token=%s", c.Key)
+  req, err := http.NewRequest(http.MethodPatch, address, bytes.NewBuffer(settings))
+  req.Header.Set("Content-Type", "application/json")
+  if err != nil {
+    return ta, 1, err
+  }
+
+  resp, err := client.Do(req)
+  if err != nil {
+    return ta, 1, err
+  }
+  defer resp.Body.Close()
+
+  switch resp.StatusCode {
+  case 200: // OK
+  case 401: return ta, resp.StatusCode, unauthorized
+  case 405: return ta, resp.StatusCode, method_not_allowed
+  case 422: return ta, resp.StatusCode, invalid_url
+  default: return ta, resp.StatusCode, something_wrong
+  }
+
+  data, err := ioutil.ReadAll(resp.Body)
+  if err != nil {
+    return ta, 1, err
+  }
+
+  if err = json.Unmarshal(data, &ta); err != nil {
+    return ta, 1, err
+  }
+
+  return ta, 0, nil
 }

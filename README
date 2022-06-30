@@ -8,11 +8,12 @@ Support:
 == Available with TinyUrl.com
   [!] - Create
   [!] - Update alias
-  [x] - Update domain not working(subscribe mode?)
+  [x] - Update domain not working(subscribe mode only)
   [!] - Change url
   [!] - Information
-  [x] - Delete not working(subscribe mode?)
-  ... in progress
+  [x] - Delete not working(subscribe mode only)
+  [x] - Archive not working(subscribe mode only)
+  [x] - Analytics/.../ not working(subscribe mode only)
 
 == Available with Cutt.ly
   [!] - Create
