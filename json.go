@@ -64,13 +64,13 @@ type TinyUrlUpdate struct {
 }
 
 type DataUpdate struct {
-  Domain     string          `json:"domain"`
-  Alias      string          `json:"alias"`
-  Deleted    bool            `json:"deleted"`
-  Archived   bool            `json:"archived"`
-  Tags       []string        `json:"tags"`
-  Analytics  AnalyticsCreate `json:"analytics"`
-  Tiny_url   string          `json:"tiny_url"`
+  Domain    string          `json:"domain"`
+  Alias     string          `json:"alias"`
+  Deleted   bool            `json:"deleted"`
+  Archived  bool            `json:"archived"`
+  Tags      []string        `json:"tags"`
+  Analytics AnalyticsCreate `json:"analytics"`
+  Tiny_url  string          `json:"tiny_url"`
 }
 
 type TinyUrlChange struct {
@@ -81,4 +81,51 @@ type TinyUrlChange struct {
 
 type DataChange struct {
   Url string `json:"url"`
+}
+
+type TinyUrlReceiveInformation struct {
+  Data   DataReceiveInformation `json:"data"`
+  Code   int                    `json:"code"`
+  Errors []string               `json:"errors"`
+}
+
+type DataReceiveInformation struct {
+  Domain    string                 `json:"domain"`
+  Alias     string                 `json:"alias"`
+  Deleted   bool                   `json:"deleted"`
+  Archived  bool                   `json:"archived"`
+  Tags      []string               `json:"tags"`
+  Analytics AnalyticsCreate        `json:"analytics"`
+  Tiny_url  string                 `json:"tiny_url"`
+  User      UserReceiveInformation `json:"user"`
+  Team      TeamReceiveInformation `json"team"`
+  Hits      int                    `json:"hits"`
+  Url       string                 `json:"url"`
+}
+
+type UserReceiveInformation struct {
+  Name  string `json:"name"`
+  Email string `json:"email"`
+}
+
+type TeamReceiveInformation struct {
+  Name string `json:"name"`
+  Slug string `json:"slug"`
+}
+
+type TinyUrlDelete struct {
+  Data   DataDelete `json:"data"`
+  Code   int        `json:"code"`
+  Errors []string   `json:"errors"`
+}
+
+type DataDelete struct {
+  Domain     string          `json:"domain"`
+  Alias      string          `json:"alias"`
+  Deleted    bool            `json:"deleted"`
+  Archived   bool            `json:"archived"`
+  Tags       []string        `json:"tags"`
+  Analytics  AnalyticsCreate `json:"analytics"`
+  Tiny_url   string          `json:"tiny_url"`
+  Url        string          `json:"url"`
 }

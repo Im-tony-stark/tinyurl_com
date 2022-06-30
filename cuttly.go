@@ -7,11 +7,10 @@ import (
   "encoding/json"
 )
 
-func (c *ConfigurationCuttly) CuttlyNew(url string) (CuttlyCreate, error) {
+func (c *Configuration) CuttlyNew(url string) (CuttlyCreate, error) {
   var cc CuttlyCreate
 
   address := fmt.Sprintf("https://cutt.ly/api/api.php?key=%s&short=%s", c.Key, url)
-
   req, err := http.NewRequest(http.MethodGet, address, nil)
   if err != nil {
     return cc, err
@@ -45,11 +44,10 @@ func (c *ConfigurationCuttly) CuttlyNew(url string) (CuttlyCreate, error) {
   return cc, nil
 }
 
-func (c *ConfigurationCuttly) CuttlyAnalytics(short string) (CuttlyStats, error) {
+func (c *Configuration) CuttlyAnalytics(short string) (CuttlyStats, error) {
   var cs CuttlyStats
 
   address := fmt.Sprintf("https://cutt.ly/api/api.php?key=%s&stats=%s", c.Key, short)
-
   req, err := http.NewRequest(http.MethodGet, address, nil)
   if err != nil {
     return cs, err

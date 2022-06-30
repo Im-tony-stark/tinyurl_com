@@ -8,8 +8,10 @@ Support:
 == Available with TinyUrl.com
   [!] - Create
   [!] - Update alias
-  [x] - Update domain not working
+  [x] - Update domain not working(subscribe mode?)
   [!] - Change url
+  [!] - Information
+  [x] - Delete not working(subscribe mode?)
   ... in progress
 
 == Available with Cutt.ly
@@ -19,7 +21,7 @@ Support:
   [x] - Delete link(subscribe mode only)
   [x] - Edit link/title/name(subscribe mode only)
 
-== Example Cutt.ly
+== Examples Cutt.ly
 package main
 
 import (
@@ -32,31 +34,33 @@ func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
 func main() {
   c := conf()
 
-  cc, err := c.CuttlyNew("YOUR_URL")
+  // Example 1 - Create
+  cn, err := c.CuttlyNew("YOUR_URL")
   if err != nil {
     fmt.Println(err)
     return
   }
   fmt.Println(
-    cc.Url.Status, cc.Url.ShortLink, cc.Url.Title,
-    cc.Url.FullLink, cc.Url.Date,
+    cn.Url.Status, cn.Url.ShortLink, cn.Url.Title,
+    cn.Url.FullLink, cn.Url.Date,
   )
 
-  cs, err := c.CuttlyAnalytics("YOUR_SHORT")
+  // Example 2 - Analytics
+  ca, err := c.CuttlyAnalytics("YOUR_SHORT")
   if err != nil {
     fmt.Println(err)
     return
   }
   fmt.Println(
-    cs.Stats.Date, cs.Stats.Clicks, cs.Stats.Title,
-    cs.Stats.Status, cs.Stats.FullLink, cs.Stats.ShortLink,
-    cs.Stats.Facebook, cs.Stats.Twitter, cs.Stats.Pinterest,
-    cs.Stats.Instagram, cs.Stats.GooglePlus, cs.Stats.Linkedin,
-    cs.Stats.Rest, cs.Stats.Bots,
+    ca.Stats.Date, ca.Stats.Clicks, ca.Stats.Title,
+    ca.Stats.Status, ca.Stats.FullLink, ca.Stats.ShortLink,
+    ca.Stats.Facebook, ca.Stats.Twitter, ca.Stats.Pinterest,
+    ca.Stats.Instagram, ca.Stats.GooglePlus, ca.Stats.Linkedin,
+    ca.Stats.Rest, ca.Stats.Bots,
   )
 }
 
-== Example TinyUrl.com
+== Examples TinyUrl.com
 package main
 
 import (
@@ -69,12 +73,13 @@ func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
 func main() {
   c := conf()
 
+  // Example 1 - Create
   // empty Domain: tiny.one
   // empty Alias:  generate random string
   e := &sh.Options{Domain: "", Alias: ""}
-  tn, err := c.TinyNew("YOUR_URL", e)
+  tn, status_code, err := c.TinyNew("YOUR_URL", e)
   if err != nil {
-    fmt.Println(err)
+    fmt.Println(status_code, err)
     return
   }
   fmt.Println(
@@ -85,9 +90,10 @@ func main() {
     tn.Data.Url, tn.Code, tn.Errors,
   )
 
-  tu, err := c.TinyUpdate("YOUR_DOMAIN", "YOUR_ALIAS", "NEW_ALIAS")
+  // Example 2 - Update
+  tu, status_code, err := c.TinyUpdate("YOUR_DOMAIN", "YOUR_ALIAS", "NEW_ALIAS")
   if err != nil {
-    fmt.Println(err)
+    fmt.Println(status_code, err)
     return
   }
   fmt.Println(
@@ -97,10 +103,27 @@ func main() {
     tu.code, tu.Errors,
   )
 
-  tc, err := c.TinyChange("NEW_URL", "YOUR_DOMAIN", "YOUR_ALIAS")
+  // Example 3 - Change
+  tc, status_code, err := c.TinyChange("NEW_URL", "YOUR_DOMAIN", "YOUR_ALIAS")
   if err != nil {
-    fmt.Println(err)
+    fmt.Println(status_code, err)
     return
   }
   fmt.Println(tc.Data.Url, tc.Code, tc.Errors)
+
+  // Example 4 - Information
+  tri, status_code, err := c.TinyInformation("YOUR_DOMAIN", "YOUR_ALIAS")
+  if err != nil {
+    fmt.Println(status_code, err)
+    return
+  }
+  fmt.Println(
+    tri.Code, tri.Errors,
+    tri.Data.Domain, tri.Data.Alias, tri.Data.Deleted,
+    tri.Data.Archived, tri.Data.Tags,
+    tri.Data.Analytics.Enable, tri.Data.Analytics.Public,
+    tri.Data.Tiny_url, tri.Data.User.Name,
+    tri.Data.User.Email, tri.Data.Team.Name,
+    tri.Data.Team.Slug, tri.Data.Hits, tri.Data.Url,
+  )
 }
