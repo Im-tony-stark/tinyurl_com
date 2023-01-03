@@ -5,7 +5,7 @@ import (
   sh "github.com/vexilology/shorteningo"
 )
 
-func conf() *sh.Configuration { return sh.Add("PRIVATE_KEY") }
+func conf() *sh.Configuration { return sh.Add("dwszizXTb8Hv5qnCvbJ7T1ribSH7MS6VK0MEJSl4avJOYASQ1F0zpQm0aWBU") }
 
 func main() {
   c := conf()
